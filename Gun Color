@@ -1,0 +1,124 @@
+// ==UserScript==
+// @name         Surviv Gun Color
+// @namespace    http://tampermonkey.net/
+// @version      1
+// @description  Helps noobs find the correct color for the gun
+// @author       HumphreyGaming
+// @match        http://surviv.io/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    var elems = document.getElementsByClassName('ui-weapon-name');
+    console.log(elems);
+
+    for (var ii=0; ii<elems.length; ii++) {
+
+        elems[ii].addEventListener('DOMSubtreeModified', function(){
+            var weaponName = this.textContent;
+
+            var border = 'ridge ';//auto fire
+
+            //not autofire mode
+            switch(weaponName) {
+
+                //fast rate
+                case 'Fists':
+                case 'Frag':
+                case 'Smoke':
+
+                case 'M9'://trash
+                case 'MP220'://OP
+                case 'OT-38':
+                case 'Desert Eagle':
+
+                case 'M39 EMR':
+                case 'Mk 12 SPR':
+                    border = 'double ';
+                    break;
+
+                //slow rate
+                case 'UMP9'://trash
+                case 'M870':
+                case 'Mosin-Nagant':
+                case 'SV-98':
+                case 'FAMAS':
+                    border = 'dashed ';
+                    break;
+
+            }
+
+
+            //weapon color
+            switch(weaponName) {
+
+                //orange bullet 9mm
+                case 'M9':
+                case 'M39R':
+                case 'UMP9':
+                case 'MP5':
+                case 'G18C':
+                case 'MAC-10':
+                case 'Vector':
+                    border += 'orange';
+                    break;
+
+                //red bullet 12gauge
+                case 'M870':
+                case 'MP220':
+                case 'Saiga-12':
+                case 'SPAS-12':
+                    border += 'red';
+                    break;
+
+                //blue bullet 7.62mm
+                case 'OT-38':
+                case 'M39 EMR':
+                case 'Mosin-Nagant':
+                case 'SV-98'://ddddd
+                case 'AK-47':
+                case 'DP-28':
+                case 'SCAR-H':
+                case 'M1 Garand':
+                    border += 'blue';
+                    break;
+
+                //green bullet 5.56mm
+                case 'FAMAS':
+                case 'Mk 12 SPR':
+                case 'M4A1-S':
+                case 'M416':
+                case 'M249':
+                    border += 'green';
+                    break;
+
+                //black bullet 50ae
+                case 'DEagle 50':
+                    border += 'black';
+                    break;
+                    
+                //black bullet 50ae
+                case 'AWM-S':
+                    border += '#6b8e23';
+                    break;
+
+                case 'Smoke':
+                    border += 'white';
+                    break;
+
+                case 'Frag':
+                    border += 'red';
+                    break;
+
+                default:
+                    border = '';
+                    break;
+            }
+            console.log(border);
+
+            this.parentNode.style.border=border;
+        }, false);
+    }
+})();
